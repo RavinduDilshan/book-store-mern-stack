@@ -56,7 +56,28 @@ app.get('/books',async(request,response)=>{
 
     } catch(error){
         console.log(error);
-        return respons.status(500).send({
+        return response.status(500).send({
+            message: error.message
+        })
+
+    }
+
+});
+
+//route for get one book from database by id
+app.get('/books/:id',async(request,response)=>{
+    try{
+
+        const id= request.params.id;
+        const books = await Book.findById(id);
+        response.status(200).json({
+            count:books.length,
+            data:books
+        });
+
+    } catch(error){
+        console.log(error);
+        return response.status(500).send({
             message: error.message
         })
 
